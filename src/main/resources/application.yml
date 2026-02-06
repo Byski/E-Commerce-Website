@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:novacart}
+    username: ${DB_USER:novacart}
+    password: ${DB_PASSWORD:novacart}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  flyway:
+    enabled: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:novacart_jwt_secret_key_123456789012345}
+    expiration-minutes: ${JWT_EXP_MINUTES:120}
+
+springdoc:
+  swagger-ui:
+    path: /swagger
