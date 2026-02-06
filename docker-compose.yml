@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: novacart-db
+    environment:
+      POSTGRES_DB: novacart
+      POSTGRES_USER: novacart
+      POSTGRES_PASSWORD: novacart
+    ports:
+      - "5432:5432"
+    volumes:
+      - novacart_db:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: novacart-app
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: novacart
+      DB_USER: novacart
+      DB_PASSWORD: novacart
+      JWT_SECRET: novacart_jwt_secret_key_123456789012345
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  novacart_db:
